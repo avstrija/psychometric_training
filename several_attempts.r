@@ -25,6 +25,7 @@ p_i[p_i$task_id %in% c("43f464b92996aa28", "5f596b6d2bf8eb9b", "67e3272b9bf1e589
 
 p_ia <- df %>%
     filter(attempt <= 3) %>%
+    group_by(task_id, attempt) %>%
     summarise(
         n_Correct = sum(is_correct == 1),
         n_Incorrect = sum(is_correct == 0),
@@ -38,6 +39,9 @@ p_ia <- df %>%
     mutate(
         p_ia = round(cum_n_Correct / (cum_n_Correct + n_Incorrect), 2)
     ) %>%
-    select(task_id, p_ia)
+    select(task_id, attempt, p_ia)
 
 head(as.data.frame(p_ia))
+
+install.packages("tidyr",repos = "http://cran.us.r-project.org")
+library(tidyr)
