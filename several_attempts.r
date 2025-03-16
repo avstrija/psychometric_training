@@ -45,3 +45,13 @@ head(as.data.frame(p_ia))
 
 install.packages("tidyr",repos = "http://cran.us.r-project.org")
 library(tidyr)
+
+wide_p_ia <- p_ia %>%
+    pivot_wider(
+        names_from = attempt,
+        values_from = p_ia,
+        names_prefix = "p_i",
+        values_fill = list(p_ia = NA)
+    )
+
+head(as.data.frame(wide_p_ia))
